@@ -1,0 +1,28 @@
+{
+  "name": "underskrift",
+  "version": "0.0.1",
+  "description": "A simple enough blog press",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "simple",
+    "ssg",
+    "portfolio",
+    "blogs"
+  ],
+  "author": "ankit <importankit@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.1",
+    "@types/node": "^20.12.12",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0",
+    "zod": "^3.23.8"
+  }
+}
