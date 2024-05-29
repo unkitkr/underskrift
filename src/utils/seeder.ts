@@ -1,5 +1,5 @@
 import { TBlogSeeder } from '../types/core.js'
-import { sluggify } from './index.js'
+import { defaultDirectories, sluggify } from './index.js'
 
 export const mainPageSeeder = `
 ------------
@@ -31,9 +31,9 @@ Your Blog Content Here
 `
 
 export const configSeeder = {
-  inputDir: ',/',
-  outputDir: './public',
-  templateDir: './template',
+  inputDir: defaultDirectories.input,
+  outputDir: defaultDirectories.output,
+  templateDir: defaultDirectories.template,
   navItems: [
     {
       title: 'Home',
@@ -49,6 +49,7 @@ export const configSeeder = {
     },
   ],
   siteTitle: 'Your Site Title',
+  siteFavicon: 'URL to your favicon',
   socials: [
     {
       name: 'Twitter',
