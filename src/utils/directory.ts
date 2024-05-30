@@ -7,11 +7,12 @@ export const defaultDirectories = {
   output: './dist',
   template: './templates',
   blogs: './blogs',
+  outputBlogs: './dist/blogs',
 }
 
 export const defaultFiles = {
-  outputIndex: 'index.html',
-  outputBlog: 'blog.html',
+  indexTemplate: 'index.html',
+  blogTemplate: 'blog.html',
   config: 'config.json',
   main: 'main.md',
   blog_example_1: 'blogs/first-post.md',
@@ -57,10 +58,11 @@ export const getFilesForBuild = {
     return readFile(path.join(config.inputDir, defaultFiles.main))
   },
   blogs: (config: TConfigFile) => {
-    const blogs = readDirectoryRecursive(config.inputDir).filter(
+    const blogPath = path.join(config.inputDir, defaultDirectories.blogs)
+    const blogs = readDirectoryRecursive(blogPath).filter(
       (file) => file.isFile() && file.name.endsWith('.md')
     )
-    return blogs.map((blog) => readFile(joinPath([config.inputDir, blog.name])))
+    return blogs.map((blog) => readFile(joinPath([blogPath, blog.name])))
   },
 }
 

@@ -18,7 +18,7 @@ export const toHtml = (content: string) => {
 
 export const loadAndParseConfigFile = () => {
   try {
-    const data = JSON.parse(readFile('config.json') ?? '')
+    const data = JSON.parse(readFile('test/config.json') ?? '')
     return data
       ? configSchema.parse(data)
         ? (data as TConfigFile)
