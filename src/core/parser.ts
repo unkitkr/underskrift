@@ -42,7 +42,7 @@ export const loadAndParseConfigFile = () => {
 }
 
 export const blogCongifOps = {
-  writeBlogToCongig: (blog: TBlog) => {
+  writeBlogToConfig: (blog: TBlog) => {
     const configFile = loadAndParseConfigFile()
     if (!configFile) {
       console.error('Error reading config file')
@@ -89,5 +89,6 @@ export const generateNewPost = async (postName: string) => {
   writeFile(
     post,
     blogPageSeeder({ title: postName, date: new Date().toISOString() })
+      .textContent
   )
 }

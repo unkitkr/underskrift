@@ -5,9 +5,9 @@ import { TConfigFile } from '../types/core.js'
 export const defaultDirectories = {
   input: './',
   output: './dist',
-  template: './templates',
+  template: './template',
   blogs: './blogs',
-  outputBlogs: './dist/blogs',
+  outputBlogs: './blogs',
 }
 
 export const defaultFiles = {

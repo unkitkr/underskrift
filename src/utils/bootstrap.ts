@@ -31,16 +31,16 @@ export const bootstrap = async (folder?: string) => {
           )
           break
         default:
-          writeFile(
-            joinPath([folder, file]),
-            blogPageSeeder({
-              title: `Your Title ${num + 1}`,
-              date: new Date().toISOString(),
-            })
-          )
-          blogCongifOps.writeBlogToCongig({
+          const blogSeed = blogPageSeeder({
             title: `Your Title ${num + 1}`,
             date: new Date().toISOString(),
+          })
+          writeFile(joinPath([folder, file]), blogSeed.textContent)
+          blogCongifOps.writeBlogToConfig({
+            title: blogSeed.content.title,
+            date: blogSeed.content.date,
+            slug: blogSeed.content.slug,
+            tags: blogSeed.content.tags,
           })
           break
       }
