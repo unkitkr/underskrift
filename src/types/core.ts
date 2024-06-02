@@ -24,6 +24,17 @@ export const SocialSchema = z.object({
   name: z.string(),
   url: z.string(),
 })
+
+export const blogSchema = z.object({
+  title: z.string(),
+  slug: z.string().optional(),
+  date: z.string(),
+  tags: z.array(z.string()).optional(),
+  description: z.string().optional(),
+})
+
+export type TBlog = z.infer<typeof blogSchema>
+
 export type Social = z.infer<typeof SocialSchema>
 
 export const configSchema = z.object({
@@ -33,5 +44,7 @@ export const configSchema = z.object({
   navItems: z.array(NavItemSchema),
   siteTitle: z.string(),
   socials: z.array(SocialSchema),
+  siteFavicon: z.string(),
+  blogs: z.array(blogSchema),
 })
 export type TConfigFile = z.infer<typeof configSchema>

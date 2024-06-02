@@ -13,6 +13,8 @@ export const defaultDirectories = {
 export const defaultFiles = {
   indexTemplate: 'index.html',
   blogTemplate: 'blog.html',
+  blogFrontTemplate: 'blog-front.html',
+  tagsTemplate: 'tags-page.html',
   config: 'config.json',
   main: 'main.md',
   blog_example_1: 'blogs/first-post.md',

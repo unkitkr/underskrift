@@ -1,4 +1,8 @@
-import { loadAndParseConfigFile, parseFrontMatter } from './parser.js'
+import {
+  blogCongifOps,
+  loadAndParseConfigFile,
+  parseFrontMatter,
+} from './parser.js'
 import {
   buildDirectory,
   defaultDirectories,
@@ -22,7 +26,21 @@ export const buildPage = (
 ) => {
   const { content, data } = parseFrontMatter(pageContent)
   const template = Handlebars.compile(templateString)
-  return template({ ...data, content, metaData: data, config })
+  return {
+    templateData: template({ ...data, content, metaData: data, config }),
+    data,
+  }
+}
+
+export const buildTagsPages = (config: TConfigFile) => {
+  const blogByTags = blogCongifOps.getBlogsByTags()
+  const tagsTemplate =
+    readFile(joinPath([config.templateDir, defaultFiles.tagsTemplate])) ?? ''
+  return Object.keys(blogByTags ?? []).map((tag) => {
+    const blogs = blogByTags?.[tag]
+    const tagsPage = Handlebars.compile(tagsTemplate)
+    return { templateData: tagsPage({ tag, blogs, config }), tag }
+  })
 }
 
 export const buildMainPage = (config: TConfigFile) => {
@@ -55,12 +73,19 @@ export const buildPages = () => {
 
   const blogPages = buildBlogPages(config)
     .map((page) => page)
-    .filter((page): page is string => !!page)
-  const mainPage = buildMainPage(config)
+    .filter((page) => !!page?.templateData)
+
+  const mainPage = buildMainPage(config)?.templateData
 
   writeFile(joinPath([outputDir, defaultFiles.indexTemplate]), mainPage ?? '')
-  blogPages.forEach((page, index) => {
-    writeFile(joinPath([blogsOutputDir, `blog-${index + 1}.html`]), page)
+  blogPages.forEach((page) => {
+    writeFile(
+      joinPath([blogsOutputDir, `${page?.data.slug}.html`]),
+      page?.templateData
+    )
+  })
+  buildTagsPages(config).forEach((page) => {
+    writeFile(joinPath([outputDir, `${page.tag}.html`]), page.templateData)
   })
 }
 

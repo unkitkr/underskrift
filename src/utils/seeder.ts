@@ -1,19 +1,16 @@
 import { TBlogSeeder } from '../types/core.js'
 import { defaultDirectories, sluggify } from './index.js'
 
-export const mainPageSeeder = `
-------------
+export const mainPageSeeder = `---
 Name: Your Name
 Email: Your Email
 Bio: Your short Bio
-------------
+---
 
 Write your whole bio here
-
 `
 
-export const blogPageSeeder = (content: TBlogSeeder) => ` 
-------------
+export const blogPageSeeder = (content: TBlogSeeder) => `---
 Title: Your Title ${content.title}
 Description: ${content.description ?? 'Your Description'} 
 Tags: ${content.tags ?? '[Your Tags in an array]'}  
@@ -25,7 +22,7 @@ Author: ${content.author ?? 'Author Name'}
 slug: ${
   content.slug ? `${sluggify(content.slug)}` : `${sluggify(content.title)}`
 }
-------------
+---
 
 Your Blog Content Here
 `
@@ -68,4 +65,5 @@ export const configSeeder = {
       url: 'https://your-website.com',
     },
   ],
+  blogs: [],
 }

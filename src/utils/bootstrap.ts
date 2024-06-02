@@ -1,3 +1,4 @@
+import { blogCongifOps } from '../core/parser.js'
 import {
   buildDirectory,
   defaultDirectories,
@@ -9,16 +10,14 @@ import { blogPageSeeder, configSeeder, mainPageSeeder } from './seeder.js'
 
 const directories = [defaultDirectories.blogs]
 const files = [
+  defaultFiles.config,
   defaultFiles.main,
   defaultFiles.blog_example_1,
   defaultFiles.blog_example_2,
-  defaultFiles.config,
 ]
 
 export const bootstrap = async (folder?: string) => {
-  await Promise.all(
-    directories.map((directory) => buildDirectory('test/' + directory))
-  )
+  await Promise.all(directories.map((directory) => buildDirectory(directory)))
   await Promise.all(
     files.map((file, num) => {
       switch (file) {
@@ -39,18 +38,12 @@ export const bootstrap = async (folder?: string) => {
               date: new Date().toISOString(),
             })
           )
+          blogCongifOps.writeBlogToCongig({
+            title: `Your Title ${num + 1}`,
+            date: new Date().toISOString(),
+          })
           break
       }
     })
   )
 }
-
-export const generateNewPost = async (postName: string) => {
-  const post = `${defaultDirectories.blogs}/${postName}`
-  writeFile(
-    post,
-    blogPageSeeder({ title: postName, date: new Date().toISOString() })
-  )
-}
-
-bootstrap('test/')
