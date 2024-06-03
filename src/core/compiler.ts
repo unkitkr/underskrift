@@ -68,8 +68,10 @@ export const buildPages = () => {
   }
   const { outputDir } = config
   const blogsOutputDir = joinPath([outputDir, defaultDirectories.outputBlogs])
+  const tagsOutputDir = joinPath([outputDir, defaultDirectories.outputTags])
   buildDirectory(outputDir ?? defaultDirectories.output)
   buildDirectory(blogsOutputDir)
+  buildDirectory(tagsOutputDir)
 
   const blogPages = buildBlogPages(config)
     .map((page) => page)
@@ -85,8 +87,9 @@ export const buildPages = () => {
     )
   })
   buildTagsPages(config).forEach((page) => {
-    writeFile(joinPath([outputDir, `${page.tag}.html`]), page.templateData)
+    writeFile(
+      joinPath([outputDir, defaultDirectories.outputTags, `${page.tag}.html`]),
+      page.templateData
+    )
   })
 }
-
-buildPages()

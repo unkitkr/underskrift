@@ -8,6 +8,7 @@ export const defaultDirectories = {
   template: './template',
   blogs: './blogs',
   outputBlogs: './blogs',
+  outputTags: './tags',
 }
 
 export const defaultFiles = {

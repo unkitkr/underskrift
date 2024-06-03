@@ -7,8 +7,7 @@ Email: Your Email
 Bio: Your short Bio
 ---
 
-Write your whole bio here
-`
+Write your whole bio here`
 
 export const blogPageSeeder = (content: TBlogSeeder) => {
   const feeder: TBlogSeeder = {
@@ -35,8 +34,8 @@ Author: ${feeder.author}
 slug: ${feeder.slug}
 ---
 
-Your Blog Content Here
-`
+Your Blog Content Here`
+
   return { textContent, content: feeder }
 }
 
