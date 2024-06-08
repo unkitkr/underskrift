@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ config.siteTitle }}</title>
-  </head>
-  <body>
-    {{{content}}}
-  </body>
-</html>
+{% from "./components/intro-header.html" import "introHeader" %}
+{% extends "base.template.html" %}
+{% block title %}{{config.siteTitle}}
+{%endblock %}
+{% block content %}
+{{content | safe}}
+{% endblock %}

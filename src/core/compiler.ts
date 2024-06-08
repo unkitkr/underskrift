@@ -11,12 +11,23 @@ import {
   joinPath,
   readFile,
 } from '../utils/directory.js'
-import Handlebars from 'handlebars'
+import njk from 'nunjucks'
 import { TConfigFile } from '../types/core.js'
 import { writeFile } from '../utils/directory.js'
 
 const getConfig = () => {
   return loadAndParseConfigFile() ?? null
+}
+
+const configureNunjucks = () => {
+  const templateDir = getConfig()?.templateDir
+  if (!templateDir) {
+    console.error('Error reading config file')
+    return
+  }
+  return njk.configure(joinPath([process.cwd(), templateDir]), {
+    autoescape: true,
+  })
 }
 
 export const buildPage = (
@@ -25,9 +36,12 @@ export const buildPage = (
   config: TConfigFile
 ) => {
   const { content, data } = parseFrontMatter(pageContent)
-  const template = Handlebars.compile(templateString)
+  const template = njk.compile(
+    templateString,
+    configureNunjucks() ?? njk.configure({ autoescape: true })
+  )
   return {
-    templateData: template({ ...data, content, metaData: data, config }),
+    templateData: template.render({ ...data, content, metaData: data, config }),
     data,
   }
 }
@@ -38,8 +52,11 @@ export const buildTagsPages = (config: TConfigFile) => {
     readFile(joinPath([config.templateDir, defaultFiles.tagsTemplate])) ?? ''
   return Object.keys(blogByTags ?? []).map((tag) => {
     const blogs = blogByTags?.[tag]
-    const tagsPage = Handlebars.compile(tagsTemplate)
-    return { templateData: tagsPage({ tag, blogs, config }), tag }
+    const tagsPage = njk.compile(
+      tagsTemplate,
+      configureNunjucks() ?? njk.configure({ autoescape: true })
+    )
+    return { templateData: tagsPage.render({ tag, blogs, config }), tag }
   })
 }
 

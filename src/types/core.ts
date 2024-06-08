@@ -40,6 +40,7 @@ export type Social = z.infer<typeof SocialSchema>
 export const configSchema = z.object({
   inputDir: z.string(),
   outputDir: z.string(),
+  profilePic: z.string(),
   templateDir: z.string(),
   navItems: z.array(NavItemSchema),
   siteTitle: z.string(),

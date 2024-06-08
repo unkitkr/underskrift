@@ -59,6 +59,7 @@ export const configSeeder = {
   ],
   siteTitle: 'Your Site Title',
   siteFavicon: 'URL to your favicon',
+  profilePic: 'URL to your profile picture',
   socials: [
     {
       name: 'Twitter',
@@ -75,6 +76,14 @@ export const configSeeder = {
     {
       name: 'Website',
       url: 'https://your-website.com',
+    },
+    {
+      name: 'Resume',
+      url: 'https://your-resume.com',
+    },
+    {
+      name: 'Portfolio',
+      url: 'https://your-portfolio.com',
     },
   ],
   blogs: [],
