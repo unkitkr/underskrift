@@ -36,7 +36,7 @@ export const loadAndParseConfigFile = () => {
         : null
       : null
   } catch (error) {
-    console.error('Error reading config file')
+    console.error('Error parsing config file')
     return null
   }
 }

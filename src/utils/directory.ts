@@ -6,6 +6,7 @@ export const defaultDirectories = {
   input: './',
   output: './dist',
   template: './template',
+  static: './static',
   blogs: './blogs',
   outputBlogs: './blogs',
   outputTags: './tags',
@@ -48,6 +49,16 @@ export const readFile = (source: string) => {
     return fs.readFileSync(source, 'utf-8')
   } catch (error) {
     return null
+  }
+}
+
+export const copyDirectory = (source: string, destination: string) => {
+  try {
+    fs.cpSync(source, destination, { recursive: true })
+    return true
+  } catch (error) {
+    console.error('Error copying directory')
+    return false
   }
 }
 

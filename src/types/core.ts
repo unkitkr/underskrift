@@ -32,6 +32,12 @@ export const blogSchema = z.object({
   tags: z.array(z.string()).optional(),
   description: z.string().optional(),
 })
+export const personalInfoSchema = z.object({
+  name: z.string(),
+  location: z.string().optional(),
+  profilePic: z.string().optional(),
+  email: z.string(),
+})
 
 export type TBlog = z.infer<typeof blogSchema>
 
@@ -40,7 +46,7 @@ export type Social = z.infer<typeof SocialSchema>
 export const configSchema = z.object({
   inputDir: z.string(),
   outputDir: z.string(),
-  profilePic: z.string(),
+  personalInformation: personalInfoSchema,
   templateDir: z.string(),
   navItems: z.array(NavItemSchema),
   siteTitle: z.string(),
@@ -48,4 +54,5 @@ export const configSchema = z.object({
   siteFavicon: z.string(),
   blogs: z.array(blogSchema),
 })
+
 export type TConfigFile = z.infer<typeof configSchema>

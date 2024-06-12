@@ -2,8 +2,6 @@ import { TBlogSeeder } from '../types/core.js'
 import { defaultDirectories, sluggify } from './index.js'
 
 export const mainPageSeeder = `---
-Name: Your Name
-Email: Your Email
 Bio: Your short Bio
 ---
 
@@ -59,7 +57,12 @@ export const configSeeder = {
   ],
   siteTitle: 'Your Site Title',
   siteFavicon: 'URL to your favicon',
-  profilePic: 'URL to your profile picture',
+  personalInformation: {
+    name: 'Your Name',
+    email: 'Your Email',
+    profilePic: 'URL to your profile picture',
+    location: 'Your Location',
+  },
   socials: [
     {
       name: 'Twitter',

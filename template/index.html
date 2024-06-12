@@ -1,7 +1,12 @@
 {% from "./components/intro-header.html" import "introHeader" %}
+{% from "./components/navbar.html" import "Navbar" %}
 {% extends "base.template.html" %}
 {% block title %}{{config.siteTitle}}
 {%endblock %}
-{% block content %}
-{{content | safe}}
+{% block mainContent %}
+{{ introHeader(data) }}
+{{ Navbar(active = "about") }}
+<div class = "main-container mt-4">
+  {{ data.content | safe}}
+</div>
 {% endblock %}

@@ -5,6 +5,7 @@ import {
 } from './parser.js'
 import {
   buildDirectory,
+  copyDirectory,
   defaultDirectories,
   defaultFiles,
   getFilesForBuild,
@@ -41,7 +42,9 @@ export const buildPage = (
     configureNunjucks() ?? njk.configure({ autoescape: true })
   )
   return {
-    templateData: template.render({ ...data, content, metaData: data, config }),
+    templateData: template.render({
+      data: { content, metaData: data, config },
+    }),
     data,
   }
 }
@@ -58,6 +61,14 @@ export const buildTagsPages = (config: TConfigFile) => {
     )
     return { templateData: tagsPage.render({ tag, blogs, config }), tag }
   })
+}
+
+export const copyStaticFiles = (config: TConfigFile) => {
+  const staticDir = joinPath([config.templateDir, defaultDirectories.static])
+  const outputDir = joinPath([config.outputDir, defaultDirectories.static])
+  copyDirectory(staticDir, outputDir)
+    ? console.log('Static files copied')
+    : console.error('Error copying static files')
 }
 
 export const buildMainPage = (config: TConfigFile) => {
@@ -89,6 +100,7 @@ export const buildPages = () => {
   buildDirectory(outputDir ?? defaultDirectories.output)
   buildDirectory(blogsOutputDir)
   buildDirectory(tagsOutputDir)
+  copyStaticFiles(config)
 
   const blogPages = buildBlogPages(config)
     .map((page) => page)
