@@ -1,0 +1,178 @@
+html {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+}
+
+a:link {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+a:visited {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+a:hover {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+a:active {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+.content a::after {
+  content: ' ↗';
+  color: rgb(96, 96, 96);
+}
+
+.bio-name {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: 500;
+}
+.bio-short {
+  font-size: 18px;
+  font-style: italic;
+  font-family: 'Source Serif 4', serif;
+  font-weight: 300;
+  color: rgb(67, 67, 67);
+}
+.bio-icon-collection {
+  margin-top: 15px;
+}
+
+.bio-underline {
+  background-color: rgb(226, 226, 226);
+  height: 1px;
+  margin-top: 25px;
+}
+
+.bio-icon {
+  color: rgb(0, 0, 0);
+  display: inline-block;
+  font-size: 20px;
+}
+
+.bio-icon-location {
+  color: rgb(0, 0, 0);
+  display: inline-block;
+  font-size: 16px;
+}
+
+.bio-location {
+  margin-bottom: 20px;
+}
+.bio-location-text {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  color: rgb(96, 96, 96);
+}
+.navbar-main a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-size: 15px;
+}
+
+.navbar-item-active {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(0, 0, 0);
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+}
+
+.recent-writings {
+  margin-top: 20px;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.blog-card-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.blog-card-description {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgb(67, 67, 67);
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+}
+
+.blog-card-date {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgb(96, 96, 96);
+}
+
+.blog-card-content {
+  border: 1px solid rgb(226, 226, 226);
+  padding: 10px 20px 10px 20px;
+  border-radius: 8px;
+}
+.blog-card-content:hover {
+  border: 1px solid rgb(197, 197, 197);
+}
+
+.blog-card {
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.blog-headline {
+  font-size: 30px;
+  font-weight: 500;
+  font-family: 'Source Serif 4', serif;
+}
+
+.blog-description {
+  font-size: 18px;
+  font-weight: 300;
+  color: rgb(67, 67, 67);
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+}
+
+.blog-date {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgb(96, 96, 96);
+}
+
+.blog-content {
+  font-size: 18px;
+}
+
+.back-link {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgb(96, 96, 96);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: rgb(0, 0, 0);
+}
+
+.tags-section-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.tag-entry:hover {
+  color: rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.tag-entry {
+  display: inline-block;
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(226, 226, 226);
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.tag-label {
+  font-weight: 500;
+}

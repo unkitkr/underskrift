@@ -1,0 +1,46 @@
+{% macro introHeader(args) %}
+<img src="{{args.config.personalInformation.profilePic}}" width= "60" class="img-fluid rounded-circle" />
+<div class="bio-name">{{ args.config.personalInformation.name }}</div>
+<div class="bio-short">{{ args.config.personalInformation.shortBio }}</div>
+<div class = "bio-icon-collection">
+{% if args.config.personalInformation.location %}
+    <div class="bio-location">
+        <i class = "bio-icon-location bi-geo-alt-fill"> <span class = "bio-location-text">{{ args.config.personalInformation.location }}</span></i>
+    </div>
+{% endif %}
+{% if args.config.socials and args.config.socials.length > 0 %}
+  {% for social in args.config.socials %}
+    {% if social.name == "GitHub"%}
+      <a href="{{ social.url }}" class="d-inline-block me-3">
+        <i class = "bio-icon bi bi-github"></i>
+      </a>
+    {% elif social.name == "LinkedIn" %}
+      <a href="{{ social.url }}" class="d-inline-block me-3">
+        <i class = "bio-icon bi bi-linkedin"></i>
+      </a>
+    {% elif social.name == "Twitter" %}
+      <a href="{{ social.url }}" class="d-inline-block me-3">
+        <i class = "bio-icon bi bi-twitter-x"></i>
+      </a>
+    {% elif social.name == "Portfolio" %}
+      <a href="{{ social.url }}" class="d-inline-block me-3">
+        <i class = "bio-icon bi bi-briefcase-fill"></i>
+      </a>
+    {% elif social.name == "Resume" %}
+      <a href="{{ social.url }}" class="d-inline-block me-3">
+        <i class = "bi bi-file-earmark-text-fill"></i>
+      </a>
+    {% else %}
+      <a href="{{ social.url }}" class="d-inline-block me-3">
+        <i class = "bio-icon"></i>
+      </a>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+{% if args.config.personalInformation.email %}
+    <a href="mailto:{{ args.config.personalInformation.email}}" class="d-inline-block me-3">
+        <i class = "bio-icon bi-send-fill"></i>
+    </a>
+{% endif %}
+<div class="w-100 bio-underline"></div>
+{% endmacro %}

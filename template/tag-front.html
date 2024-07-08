@@ -1,6 +1,6 @@
 {% from "./components/intro-header.html" import "introHeader" %}
 {% from "./components/navbar.html" import "Navbar" %}
-{% from "./components/blog-card.html" import "BlogCard" %}
+{% from "./components/tags-section.html" import "tagsSection" %}
 
 {% extends "base.template.html" %}
 
@@ -8,8 +8,12 @@
 {%endblock %}
 {% block mainContent %}
 {{ introHeader(data) }}
-{{ Navbar(active = "blogs") }}
+{{ Navbar(active = "tags") }}
 <div class = "pt-2">
-{{ BlogCard(data.config)}}
+{{ tagsSection(data.config)}}
+</div>
+<div class = "tags-section-title mt-4">Readings</div>
+<div class = "mt-2 content">
+    {{data.content | safe}}
 </div>
 {% endblock %}

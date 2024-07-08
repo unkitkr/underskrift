@@ -15,12 +15,14 @@ export const defaultDirectories = {
 export const defaultFiles = {
   indexTemplate: 'index.html',
   blogTemplate: 'blog.html',
+  tagTemplate: 'tag.html',
+  tagFrontTemplate: 'tag-front.html',
   blogFrontTemplate: 'blog-front.html',
-  tagsTemplate: 'tags-page.html',
   config: 'config.json',
   main: 'main.md',
   blog_example_1: 'blogs/first-post.md',
   blog_example_2: 'blogs/second-post.md',
+  tagSeedFile: 'tags.md',
 }
 
 export const directoryExists = (source: string) => {
@@ -77,6 +79,9 @@ export const getFilesForBuild = {
       (file) => file.isFile() && file.name.endsWith('.md')
     )
     return blogs.map((blog) => readFile(joinPath([blogPath, blog.name])))
+  },
+  tags: (config: TConfigFile) => {
+    return readFile(path.join(config.inputDir, defaultFiles.tagSeedFile))
   },
 }
 

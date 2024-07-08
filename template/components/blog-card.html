@@ -1,0 +1,22 @@
+{% macro BlogCard(args) %}
+
+{% for blog in args.blogs %}
+
+<a href = "/blogs/{{blog.slug}}.html">
+<div class="blog-card">
+    <div class="blog-card-content">
+        <div class="blog-card-title">
+            {{blog.title}}
+        </div>
+        <div class="blog-card-date py-1">
+            {{blog.date}}
+        </div>
+        <div class="blog-card-description">
+            {{blog.description}}
+        </div>
+    </div>
+</div>
+</a>
+
+{% endfor %}    
+{% endmacro %}

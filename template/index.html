@@ -1,5 +1,6 @@
 {% from "./components/intro-header.html" import "introHeader" %}
 {% from "./components/navbar.html" import "Navbar" %}
+{% from "./components/blog-card.html" import "BlogCard" %}
 {% extends "base.template.html" %}
 {% block title %}{{config.siteTitle}}
 {%endblock %}
@@ -7,9 +8,12 @@
 {{ introHeader(data) }}
 {{ Navbar(active = "about") }}
 <div class = "main-container mt-4">
-  {{ data.content | safe}}
-  <div>
-    <p> Recent writings. </p>
+  <div class = "content">
+    {{ data.content | safe}}
   </div>
+  <div>
+    <p class = "recent-writings"> Recent writings. </p>
+  </div>
+  {{ BlogCard(data.config) }}
 </div>
 {% endblock %}

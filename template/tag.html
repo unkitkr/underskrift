@@ -1,0 +1,23 @@
+{% from "./components/intro-header.html" import "introHeader" %}
+{% from "./components/navbar.html" import "Navbar" %}
+{% from "./components/blog-card.html" import "BlogCard" %}
+
+{% extends "base.template.html" %}
+
+{% block title %}
+{{data.config.siteTitle}} - Tags
+{% endblock %} 
+
+{% block mainContent %} 
+{{ introHeader(data) }}
+{{ Navbar(active = "tags") }}
+<div class = "mt-4 tag-label">
+    # {{data.tag}}
+</div>
+<div class = "mt-0">
+{{ BlogCard(data)}}
+</div>
+<div class = "mt-4 mb-4">
+    <a href = "/tags" class = "back-link"> ← Back </a>
+</div>
+{% endblock %}

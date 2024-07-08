@@ -37,6 +37,7 @@ export const personalInfoSchema = z.object({
   location: z.string().optional(),
   profilePic: z.string().optional(),
   email: z.string(),
+  shortBio: z.string().optional(),
 })
 
 export type TBlog = z.infer<typeof blogSchema>

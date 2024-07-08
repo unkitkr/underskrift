@@ -1,0 +1,13 @@
+{% macro Navbar(active) %}
+    <div class = "navbar-main mt-4">
+      <a href="/" class="d-inline-block me-3 nav-entry {% if active == "about" %}navbar-item-active{% endif %}">
+        About
+      </a>
+      <a href="/blogs" class="d-inline-block me-3 nav-entry {% if active == "blogs" %}navbar-item-active{% endif %}">
+        Blogs
+      </a>
+      <a href="/tags" class="d-inline-block me-3 nav-entry {% if active == "tags" %}navbar-item-active{% endif %}">
+        Tags
+      </a>
+    </div>
+{% endmacro %}

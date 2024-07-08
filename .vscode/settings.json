@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.html": "nunjucks"
+  },
+  "liveServer.settings.mount": [["/", "./dist"]]
+}

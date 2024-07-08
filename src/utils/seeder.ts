@@ -27,7 +27,14 @@ Tags: ${feeder.tags}
 OgImage: ${feeder.ogImage} 
 OgTitle : ${feeder.ogTitle}
 OgDescription: ${feeder.ogDescription}
-Date: ${feeder.date ?? new Date().toISOString()}
+Date: ${
+    feeder.date ??
+    new Date().toLocaleDateString('en-GB', {
+      month: 'long',
+      day: '2-digit',
+      year: 'numeric',
+    })
+  }
 Author: ${feeder.author}
 slug: ${feeder.slug}
 ---
@@ -36,6 +43,11 @@ Your Blog Content Here`
 
   return { textContent, content: feeder }
 }
+
+export const tagsSeeder = `
+  - [Google](https://google.com)
+  - [A good Blog](https://good-blog.com)
+  - [Maybe something proud](https://proud.com)`
 
 export const configSeeder = {
   inputDir: defaultDirectories.input,
@@ -62,6 +74,7 @@ export const configSeeder = {
     email: 'Your Email',
     profilePic: 'URL to your profile picture',
     location: 'Your Location',
+    shortBio: 'Your short bio',
   },
   socials: [
     {

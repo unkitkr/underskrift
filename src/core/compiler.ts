@@ -15,6 +15,7 @@ import {
 import njk from 'nunjucks'
 import { TConfigFile } from '../types/core.js'
 import { writeFile } from '../utils/directory.js'
+import prettify from 'html-prettify'
 
 const getConfig = () => {
   return loadAndParseConfigFile() ?? null
@@ -34,7 +35,7 @@ const configureNunjucks = () => {
 export const buildPage = (
   pageContent: string,
   templateString: string,
-  config: TConfigFile
+  config: TConfigFile & { [key: string]: any }
 ) => {
   const { content, data } = parseFrontMatter(pageContent)
   const template = njk.compile(
@@ -42,24 +43,48 @@ export const buildPage = (
     configureNunjucks() ?? njk.configure({ autoescape: true })
   )
   return {
-    templateData: template.render({
-      data: { content, metaData: data, config },
-    }),
+    templateData: prettify(
+      template.render({
+        data: { content, metaData: data, config },
+      })
+    ),
     data,
   }
+}
+
+export const buildTagMainPage = (config: TConfigFile) => {
+  const tagsIndexPage = readFile(
+    joinPath([config.templateDir, defaultFiles.tagFrontTemplate])
+  )
+  if (!tagsIndexPage) {
+    console.error('Error reading tag index template')
+    return
+  }
+  const tagLoadedPage = getFilesForBuild.tags(config)
+  const allTags = blogCongifOps.getAllTags()
+
+  return tagLoadedPage
+    ? buildPage(tagLoadedPage, tagsIndexPage ?? '', {
+        ...config,
+        tags: allTags,
+      })
+    : null
 }
 
 export const buildTagsPages = (config: TConfigFile) => {
   const blogByTags = blogCongifOps.getBlogsByTags()
   const tagsTemplate =
-    readFile(joinPath([config.templateDir, defaultFiles.tagsTemplate])) ?? ''
+    readFile(joinPath([config.templateDir, defaultFiles.tagTemplate])) ?? ''
   return Object.keys(blogByTags ?? []).map((tag) => {
     const blogs = blogByTags?.[tag]
     const tagsPage = njk.compile(
       tagsTemplate,
       configureNunjucks() ?? njk.configure({ autoescape: true })
     )
-    return { templateData: tagsPage.render({ tag, blogs, config }), tag }
+    return {
+      templateData: tagsPage.render({ data: { tag, blogs, config } }),
+      tag,
+    }
   })
 }
 
@@ -73,12 +98,32 @@ export const copyStaticFiles = (config: TConfigFile) => {
 
 export const buildMainPage = (config: TConfigFile) => {
   const loadedPage = getFilesForBuild.mainPage(config)
+  const configWithLatestBlogs = {
+    ...config,
+    blogs: blogCongifOps.getLatestBlogs(2) ?? [],
+  }
   const mainTemplate =
     readFile(joinPath([config.templateDir, defaultFiles.indexTemplate])) ?? ''
-  return loadedPage ? buildPage(loadedPage, mainTemplate, config) : null
+  return loadedPage
+    ? buildPage(loadedPage, mainTemplate, configWithLatestBlogs)
+    : null
 }
 
 export const buildBlogPages = (config: TConfigFile) => {
+  const blogIndexTemplate = readFile(
+    joinPath([config.templateDir, defaultFiles.blogFrontTemplate])
+  )
+  if (!blogIndexTemplate) {
+    console.error('Error reading blog index template')
+  }
+  writeFile(
+    joinPath([
+      config.outputDir,
+      defaultDirectories.blogs,
+      defaultFiles.indexTemplate,
+    ]),
+    buildPage('', blogIndexTemplate ?? '', config).templateData
+  )
   const blogs = getFilesForBuild.blogs(config)
   const blogTemplate =
     readFile(joinPath([config.templateDir, defaultFiles.blogTemplate])) ?? ''
@@ -107,6 +152,15 @@ export const buildPages = () => {
     .filter((page) => !!page?.templateData)
 
   const mainPage = buildMainPage(config)?.templateData
+  const tagsMainPage = buildTagMainPage(config)?.templateData
+  writeFile(
+    joinPath([
+      outputDir,
+      defaultDirectories.outputTags,
+      defaultFiles.indexTemplate,
+    ]),
+    tagsMainPage
+  )
 
   writeFile(joinPath([outputDir, defaultFiles.indexTemplate]), mainPage ?? '')
   blogPages.forEach((page) => {

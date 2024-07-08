@@ -36,7 +36,7 @@ export const loadAndParseConfigFile = () => {
         : null
       : null
   } catch (error) {
-    console.error('Error parsing config file')
+    console.error('Error parsing the config file')
     return null
   }
 }
@@ -81,6 +81,32 @@ export const blogCongifOps = {
       })
       return acc
     }, {} as Record<string, TBlog[]>)
+  },
+  getLatestBlogs: (count: number) => {
+    const configFile = loadAndParseConfigFile()
+    if (!configFile) {
+      console.error('Error reading config file')
+      return
+    }
+    return configFile.blogs
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .splice(0, count) as TBlog[]
+  },
+
+  getAllTags: () => {
+    const configFile = loadAndParseConfigFile()
+    if (!configFile) {
+      console.error('Error reading config file')
+      return
+    }
+    return configFile.blogs.reduce((acc, blog) => {
+      blog.tags?.forEach((tag) => {
+        if (!acc.includes(tag)) {
+          acc.push(tag)
+        }
+      })
+      return acc
+    }, [] as string[])
   },
 }
 

@@ -1,0 +1,9 @@
+{% macro tagsSection(args) %}
+    <div class = "mt-2">
+        <div class = "tags-section-title">Tags</div>
+        <div class = "tags-section-content">
+            {% for tag in args.tags %}
+                <a href="/tags/{{ tag }}.html" class = "tag-entry mt-2">{{ tag }}</a>
+            {% endfor %}
+    </div>
+{% endmacro %}

@@ -1,11 +1,25 @@
 {% extends "base.template.html" %}
 
 {% block title %}
-{{config.siteTitle}} -Blog
+{{data.config.siteTitle}} -Blog
 {% endblock %} 
 
-{% block content %} 
+{% block mainContent %} 
 
-{{content | safe}}
+<a href = "/blogs" class = "back-link"> ← Back </a>
+<div class = "blog-headline mt-3">
+  {{data.metaData.Title}}
+</div>
 
+<div class = "blog-date">
+ Published: {{data.metaData.Date}}
+</div>
+
+<div class = "blog-description mt-3">
+  {{data.metaData.Description}}
+</div>
+
+<div class = "blog-content mt-3 content">
+{{data.content | safe}}
+</div>
 {% endblock %}
